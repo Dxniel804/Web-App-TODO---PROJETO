@@ -1,0 +1,29 @@
+<!-- tarefas.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tarefas</title>
+    <link rel="stylesheet" href="/static/styleTarefa.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Tarefas</h1>
+        
+        <ul class="task-list">
+            {% for tarefa in tarefas %}
+                <li class="task-item">
+                    <span><strong>{{ tarefa.Titulo }}</strong>: {{ tarefa.Descrição }}</span>
+                    <form action="/excluir_tarefa" method="POST" class="delete-form">
+                        <input type="hidden" name="titulo" value="{{ tarefa.Titulo }}">
+                        <button type="submit" class="delete-btn">Excluir</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <a href="/add_tarefa_form" class="add-task-btn">Adicionar Nova Tarefa</a>
+    </div>
+</body>
+</html>

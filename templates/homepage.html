@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Inicial</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styleHomepage.css') }}">
+</head>
+<body>
+
+    <!-- Menu de Navegação -->
+    <nav>
+        <a href="/">
+            <img src="{{ url_for('static', filename='img/logo_tarefa.webp') }}" alt="Logo">
+        </a>
+        <ul>
+            <li><a href="/">HOME</a></li>
+            <li><a href="/tarefas">Tarefas</a></li>
+            <li><a href="/add_tarefa_form">Adicionar Tarefa</a></li>
+            <li><a href="/del_tarefa">Deletar Tarefa</a></li>
+            <li><a href="/editar_tarefa">Editar Tarefa</a></li>
+        </ul>
+    </nav>
+
+    <!-- Container Principal -->
+    <div class="container">
+        <h1>Bem-vindo ao Gerenciador de Tarefas</h1>
+        <p>Acompanhe suas tarefas de forma fácil e organizada.</p>
+        
+        <!-- Lista de Tarefas -->
+        <div class="tarefas">
+            {% for tarefa in tarefas %}
+                <div class="tarefa">
+                    <h3>{{ tarefa["Titulo"] }}</h3>
+                    <p>{{ tarefa["Descrição"] }}</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        <a href="/add_tarefa_form" class="botao">Adicionar Nova Tarefa</a>
+    </div>
+
+</body>
+</html>

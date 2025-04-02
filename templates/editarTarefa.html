@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Tarefa</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styleEditTarefa.css') }}">
+</head>
+<body>
+
+    <nav>
+        <a href="/">
+            <img src="{{ url_for('static', filename='img/logo_tarefa.webp') }}" alt="Logo">
+        </a>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/tarefas">Tarefas</a></li>
+            <li><a href="/add_tarefa_form">Adicionar</a></li>
+            <li><a href="/del_tarefa">Deletar</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>Editar Tarefa</h1>
+        <form action="/editar_tarefa" method="POST">
+            <label for="titulo">Título da Tarefa:</label>
+            <select name="titulo" id="titulo">
+                {% for tarefa in tarefas %}
+                    <option value="{{ tarefa.Titulo }}">{{ tarefa.Titulo }}</option>
+                {% endfor %}
+            </select>
+        
+            <label for="nova_descricao">Nova Descrição:</label>
+            <textarea name="nova_descricao" id="nova_descricao" required></textarea>
+        
+            <button type="submit">Salvar Alterações</button>
+        </form>
+        
+    </div>
+
+</body>
+</html>

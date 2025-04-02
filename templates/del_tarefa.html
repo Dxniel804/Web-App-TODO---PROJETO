@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deletar Tarefa</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styleDelTarefa.css') }}">
+</head>
+<body>
+    <nav>
+        <a href="/">
+            <img src="{{ url_for('static', filename='logo_tarefa.webp') }}" alt="Logo">
+        </a>
+        <ul>
+            <li><a href="/">HOME</a></li>
+            <li><a href="/tarefas">Tarefas</a></li>
+            <li><a href="/add_tarefa_form">Adicionar Tarefa</a></li>
+            <li><a href="/del_tarefa">Deletar Tarefa</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2>Excluir Tarefa</h2>
+        <form action="{{ url_for('excluir_tarefa') }}" method="POST">
+            <label for="titulo">Selecione a tarefa:</label>
+            <select name="titulo" required>
+                {% for tarefa in tarefas %}
+                    <option value="{{ tarefa.Titulo }}">{{ tarefa.Titulo }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Excluir</button>
+        </form>
+    </div>
+</body>
+</html>
