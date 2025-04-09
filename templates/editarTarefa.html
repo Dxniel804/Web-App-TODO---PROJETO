@@ -23,13 +23,16 @@
 
     <div class="container">
         <h1>Editar Tarefa</h1>
-        <form action="/edit_tarefa" method="POST">
+        <form action="/editar_tarefa" method="POST">
             <label for="titulo">Título da Tarefa:</label>
             <select name="titulo" id="titulo">
                 {% for tarefa in tarefas %}
                     <option value="{{ tarefa.Titulo }}">{{ tarefa.Titulo }}</option>
                 {% endfor %}
             </select>
+
+            <label for="novo_titulo">Novo Título:</label>
+            <textarea name="novo_titulo" id="novo_titulo" required></textarea>
         
             <label for="nova_descricao">Nova Descrição:</label>
             <textarea name="nova_descricao" id="nova_descricao" required></textarea>

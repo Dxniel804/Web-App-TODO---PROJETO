@@ -9,15 +9,19 @@
 <body>
     <div class="container">
         <h1>Adicionar Nova Tarefa</h1>
-        <form action="/add_tarefa" method="POST">
+        <form action="/add_tarefa" method="POST" enctype="multipart/form-data">
             <label for="titulo">Título:</label>
             <input type="text" id="titulo" name="titulo" required>
             
             <label for="descricao">Descrição:</label>
             <textarea id="descricao" name="descricao" required></textarea>
+
+            <label for="imagem">Imagem da Tarefa:</label>
+            <input type="file" name="imagem" id="imagem" accept="image/*" required>
             
             <button type="submit">Adicionar</button>
         </form>
+        <br>
         <a href="/">Voltar para a Página Inicial</a>
     </div>
 </body>

@@ -1,10 +1,19 @@
 import csv
+import os
 from flask import Flask, render_template, request, redirect, url_for
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+UPLOAD_FOLDER = 'static/img'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 tarefas = []
 file_path = 'tarefas.csv'
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def ler_csv(file_path):
     tarefas.clear()
@@ -14,18 +23,18 @@ def ler_csv(file_path):
             next(reader)  # Pular cabeçalho 
             for row in reader:
                 if row:
-                    tarefas.append({"Titulo": row[0], "Descrição": row[1]})
+                    tarefas.append({"Titulo": row[0], "Descrição": row[1], "Imagem": row[2] if len(row) > 2 else ''})
     except FileNotFoundError:
         with open(file_path, mode='w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
-            writer.writerow(["Titulo", "Descrição"])
+            writer.writerow(["Titulo", "Descrição", "Imagem"])
 
 def escrever_csv(file_path):
     with open(file_path, mode='w', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
-        writer.writerow(["Titulo", "Descrição"])
+        writer.writerow(["Titulo", "Descrição", "Imagem"])
         for tarefa in tarefas:
-            writer.writerow([tarefa["Titulo"], tarefa["Descrição"]])
+            writer.writerow([tarefa["Titulo"], tarefa["Descrição"], tarefa["Imagem"]])
 
 @app.route('/')
 def homepage():
@@ -40,9 +49,17 @@ def listar_tarefas():
 def add_tarefa():
     titulo = request.form.get('titulo')
     descricao = request.form.get('descricao')
+    imagem = request.files.get('imagem')
     
     if titulo and descricao:
-        new_tarefa = {"Titulo": titulo, "Descrição": descricao}
+        image_away = ''
+
+        if imagem and allowed_file(imagem.filename):
+            filename = secure_filename(imagem.filename)
+            imagem.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            image_away = os.path.join('img', filename)
+    
+        new_tarefa = {"Titulo": titulo, "Descrição": descricao, "Imagem": image_away}
         tarefas.append(new_tarefa)
         escrever_csv(file_path)  # Atualiza o CSV
     
@@ -69,20 +86,23 @@ def excluir_tarefa():
     return redirect(url_for('listar_tarefas'))
 
 @app.route('/edit_tarefa')
-def edit_tarefa():  
+def edit_tarefa():
     ler_csv(file_path)
     return render_template('editarTarefa.html', tarefas=tarefas)
 
 @app.route('/editar_tarefa', methods=['POST'])
 def editar_tarefa():
-    titulo = request.form.get('titulo')
+    titulo_now= request.form.get('titulo')
+    novo_titulo = request.form.get('novo_titulo') 
     new_desc = request.form.get('nova_descricao')
     
-    if titulo and new_desc:
+    if titulo_now and new_desc and novo_titulo:
         for tarefa in tarefas:
-            if tarefa["Titulo"] == titulo:
+            if tarefa["Titulo"] == titulo_now:
+                tarefa["Titulo"] = novo_titulo
                 tarefa["Descrição"] = new_desc
                 escrever_csv(file_path)
+                break
     
     return redirect(url_for('listar_tarefas'))
 

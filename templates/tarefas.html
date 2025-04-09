@@ -21,18 +21,21 @@
             <li><a href="/edit_tarefa">Editar Tarefa</a></li>
         </ul>
     </nav>
-    
+
     <div class="container">
-        <h1>Suas Tarefas</h1>
+        <h1>Tarefas</h1>
+        
+        {% if not tarefas %}
+            <p>Você não tem tarefas cadastradas.</p>
+        {% endif %}
         
         <ul class="task-list">
             {% for tarefa in tarefas %}
                 <li class="task-item">
-                    <span><strong>{{ tarefa.Titulo }}</strong>: {{ tarefa.Descrição }}</span>
-                    <form action="/excluir_tarefa" method="POST" class="delete-form">
-                        <input type="hidden" name="titulo" value="{{ tarefa.Titulo }}">
-                        <button type="submit" class="delete-btn">Excluir</button>
-                    </form>
+                    <span><strong>{{ tarefa['Titulo'] }}</strong>: {{ tarefa['Descrição'] }}</span>
+                    {% if tarefa['Imagem'] %}
+                        <img src="{{ url_for('static', filename=tarefa['Imagem'].replace('static/', '')) }}" alt="Imagem da Tarefa" class="task-image"> 
+                    {% endif %}
                 </li>
             {% endfor %}
         </ul>
