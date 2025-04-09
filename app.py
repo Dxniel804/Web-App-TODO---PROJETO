@@ -68,6 +68,11 @@ def excluir_tarefa():
     
     return redirect(url_for('listar_tarefas'))
 
+@app.route('/edit_tarefa')
+def edit_tarefa():  
+    ler_csv(file_path)
+    return render_template('editarTarefa.html', tarefas=tarefas)
+
 @app.route('/editar_tarefa', methods=['POST'])
 def editar_tarefa():
     titulo = request.form.get('titulo')

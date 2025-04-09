@@ -5,11 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Tarefas</title>
-    <link rel="stylesheet" href="/static/styleTarefa.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styleTarefa.css') }}">
 </head>
 <body>
+
+    <nav>
+        <a href="/">
+            <img src="{{ url_for('static', filename='img/logo_tarefa.webp') }}" alt="Logo">
+        </a>
+        <ul>
+            <li><a href="/">HOME</a></li>
+            <li><a href="/tarefas">Tarefas</a></li>
+            <li><a href="/add_tarefa_form">Adicionar Tarefa</a></li>
+            <li><a href="/del_tarefa">Deletar Tarefa</a></li>
+            <li><a href="/edit_tarefa">Editar Tarefa</a></li>
+        </ul>
+    </nav>
+    
     <div class="container">
-        <h1>Lista de Tarefas</h1>
+        <h1>Suas Tarefas</h1>
         
         <ul class="task-list">
             {% for tarefa in tarefas %}
@@ -23,7 +37,7 @@
             {% endfor %}
         </ul>
 
-        <a href="/add_tarefa_form" class="add-task-btn">Adicionar Nova Tarefa</a>
+        <a href="/add_tarefa_form" class="add-task-btn">Adicionar nova Tarefa</a>
     </div>
 </body>
 </html>

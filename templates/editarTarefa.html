@@ -13,16 +13,17 @@
             <img src="{{ url_for('static', filename='img/logo_tarefa.webp') }}" alt="Logo">
         </a>
         <ul>
-            <li><a href="/">Home</a></li>
+            <li><a href="/">HOME</a></li>
             <li><a href="/tarefas">Tarefas</a></li>
-            <li><a href="/add_tarefa_form">Adicionar</a></li>
-            <li><a href="/del_tarefa">Deletar</a></li>
+            <li><a href="/add_tarefa_form">Adicionar Tarefa</a></li>
+            <li><a href="/del_tarefa">Deletar Tarefa</a></li>
+            <li><a href="/edit_tarefa">Editar Tarefa</a></li>
         </ul>
     </nav>
 
     <div class="container">
         <h1>Editar Tarefa</h1>
-        <form action="/editar_tarefa" method="POST">
+        <form action="/edit_tarefa" method="POST">
             <label for="titulo">Título da Tarefa:</label>
             <select name="titulo" id="titulo">
                 {% for tarefa in tarefas %}

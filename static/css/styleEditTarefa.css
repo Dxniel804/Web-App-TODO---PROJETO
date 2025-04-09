@@ -1,31 +1,46 @@
 /* Paleta de cores baseada na homepage */
 :root {
-    --primary-color: #1E1E2E;
-    --secondary-color: #282A36;
-    --text-color: #F8F8F2;
-    --button-color: #6272A4;
-    --button-hover: #44475A;
+    --primary-color: #000000;
+    --secondary-color: #e1e1e1;
+    --text-color: #000000;
+    --button-color: #ffffff67;
+    --button-hover: #000000;
+}
+
+/* Importar Fonte Google */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: var(--primary-color);
-    color: var(--text-color);
-    margin: 0;
-    padding: 0;
+    background-color: #f4f4f4;
+    color: #000000;
+    text-align: center;
+    padding-top: 80px; /* Para o menu fixo não cobrir o conteúdo */
 }
 
-/* Navegação */
+/* Estilização do Menu */
 nav {
-    background-color: var(--secondary-color);
-    padding: 15px;
+    background-color: #2C3E50;
+    color: white;
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-nav img {
-    height: 40px;
+nav a img {
+    height: 50px;
 }
 
 nav ul {
@@ -40,12 +55,15 @@ nav ul li {
 
 nav ul li a {
     text-decoration: none;
-    color: var(--text-color);
-    font-weight: bold;
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+    padding: 10px 15px;
+    transition: 0.3s;
 }
 
 nav ul li a:hover {
-    color: var(--button-color);
+    background: #1ABC9C;
+    border-radius: 5px;
 }
 
 /* Container */
