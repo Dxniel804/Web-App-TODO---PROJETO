@@ -79,9 +79,10 @@ def excluir_tarefa():
     titulo = request.form.get('titulo')
     
     if titulo:
-        global tarefas
-        tarefas = [tarefa for tarefa in tarefas if tarefa["Titulo"] != titulo]
+        global tarefas # Global permite acessar variáveis em uma lista, sem ter que excluir a lista toda, apenas a variável que foi passada a ela
+        tarefas = [tarefa for tarefa in tarefas if tarefa["Titulo"] != titulo] # Irá remover todas as tarefas que o Titulo é igual ao valor de titulo
         escrever_csv(file_path)  # Atualiza o CSV
+    # Cria uma nova lista chamada tarefas pegando cada tarefa da lista atual tarefas, mas só adiciona na nova lista se passar pela condição
     
     return redirect(url_for('listar_tarefas'))
 
@@ -92,7 +93,7 @@ def edit_tarefa():
 
 @app.route('/editar_tarefa', methods=['POST'])
 def editar_tarefa():
-    titulo_now= request.form.get('titulo')
+    titulo_now= request.form.get('titulo')                                    
     novo_titulo = request.form.get('novo_titulo') 
     new_desc = request.form.get('nova_descricao')
     
